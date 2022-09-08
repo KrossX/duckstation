@@ -84,7 +84,13 @@ public:
     if (m_filter_region != DiscRegion::Count && entry->region != m_filter_region)
       return false;
 
-    if (!m_filter_name.isEmpty() && !QString::fromStdString(entry->title).contains(m_filter_name, Qt::CaseInsensitive))
+    if (!m_filter_name.isEmpty() &&
+          !QString::fromStdString(entry->path).contains(m_filter_name, Qt::CaseInsensitive) &&
+          !QString::fromStdString(entry->serial).contains(m_filter_name, Qt::CaseInsensitive) &&
+          !QString::fromStdString(entry->title).contains(m_filter_name, Qt::CaseInsensitive) &&
+          !QString::fromStdString(entry->genre).contains(m_filter_name, Qt::CaseInsensitive) &&
+          !QString::fromStdString(entry->publisher).contains(m_filter_name, Qt::CaseInsensitive) &&
+          !QString::fromStdString(entry->developer).contains(m_filter_name, Qt::CaseInsensitive))
       return false;
 
     return QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
